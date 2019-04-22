@@ -30,13 +30,9 @@ class AbstractTool(threading.Thread):
     """
     AbstractTool Class
 
-    Working with tool classes:
-        If the tool you were working with was Nettacker,
-        you would declare your Nettacker object and then call the run function.
-        That should be it!
-
-        scan = Nettacker(host='localhost')  # made up parameters, I dont know them yet
-        scan.run()
+    Public Methods:
+        - run() -> runs the tool and parses output
+        - terminate() -> destroys currently running tool
 
     Child Class Must Implement:
         - self.run_command:
@@ -101,7 +97,13 @@ class AbstractTool(threading.Thread):
         if self.run_command is None:
             raise NotImplementedError("must define self.run_command before calling init")
 
-    def execute_cmd(self, cmd):
+    def terminate(self):
+        """
+        This kills the tool while running
+        """
+        self.sp.kill()
+
+    def __execute_cmd(self, cmd):
         """
         Executes a linux command
         :param cmd: a string of the command to be ran
@@ -131,8 +133,6 @@ class AbstractTool(threading.Thread):
 
     def run(self):
         """
-        If Python had public/private methods, this would be THE ONLY public one!
-
         Run method procedure:
             1. Starts new thread
             2. Executes self.run_tool command (implemented by child class)
@@ -145,7 +145,7 @@ class AbstractTool(threading.Thread):
             - Update scan status as we progress through the procedure
         """
         # 2.
-        self.execute_cmd(self.run_command)
+        self.__execute_cmd(self.run_command)
 
         # 3.
         self.parse_output()
