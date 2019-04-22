@@ -11,9 +11,16 @@ But why?
       the DRY principle of OOP
     - This could make adding new tools quick and hopefully easy
 
-it includes:
+It includes:
     AbstractTool:
         - a baseclass for all Tool classes
+
+Plans:
+    Django database integration:
+        - The run method should update the scan status in the database
+    Terminate Tool:
+        - Stops container, Deletes container
+    Position in queue?
 """
 import subprocess
 import threading
@@ -77,6 +84,12 @@ class AbstractTool(threading.Thread):
         self.stdout = None
         self.stderr = None
 
+        # The tools ACTIVE subprocess of type Popen
+        # this will be overwritten every time the execute command is ran
+        # this should be a member variable so we can kill the tool while running MWAHAHAHAHA
+        # documentation: https://docs.python.org/3/library/subprocess.html#subprocess.Popen
+        self.sp = None
+
         # Later this should be generated based off an ID in the database to ensure no duplicate containers
         self.ct_name = self.tool_name + '1'
 
@@ -100,10 +113,10 @@ class AbstractTool(threading.Thread):
         cmd = cmd.split(' ')
 
         # creating process object
-        sp = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        self.sp = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
         # Executing
-        stdout, stderr = sp.communicate(timeout=self.timeout)
+        stdout, stderr = self.sp.communicate(timeout=self.timeout)
 
         # decoding
         self.stdout = stdout.decode('utf-8')
@@ -112,6 +125,9 @@ class AbstractTool(threading.Thread):
         # validating. Could be an issue for some tools
         if self.stderr == '':
             raise self.ToolError("Command: %s \nReturned error: \n%s" % (cmd, stderr))
+
+        # clearing the subprocess
+        self.sp = None
 
     def run(self):
         """

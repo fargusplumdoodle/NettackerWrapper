@@ -10,4 +10,4 @@ RUN pip install -r requirements.txt
 ENTRYPOINT ["python", "./nettacker.py"]
 
 # CMD is the default, but whatever you add after "docker run <imagename>" will replace these
-CMD ["-i", "10.0.0.44", "-m", "icmp_scan", "-o", "/root/.owasp-nettacker/results/scan_02.json"]
+CMD ["-i", "127.0.0.1:8000", "-m", "icmp_scan", "-o", "/root/.owasp-nettacker/results/scan_02.json"]
