@@ -38,14 +38,28 @@ class AbstractTool(threading.Thread):
                    put that information in the appropriate locations in
                    the database
     """
-    def __init__(self, tool_name):
+    def __init__(self):
         # calling threading's init
         super(AbstractTool, self).__init__()
 
-        self.tool_name = tool_name
+        # Overwritten attributes
+        self.tool_name = None
+        self.timeout = None
+        self.run_command = None
 
-        # Later this should be generated based off an ID in the database
+        # Later this should be generated based off an ID in the database to ensure no duplicate containers
         self.ct_name = self.tool_name + '1'
+
+        # Implementation Validation
+        if self.tool_name is None:
+            raise NotImplementedError("must define self.tool_name before calling init")
+        if self.timeout is None:
+            raise NotImplementedError("must define self.timeout before calling init")
+        if self.run_command is None:
+            raise NotImplementedError("must define self.run_command before calling init")
+
+    def parse_output(self):
+        raise NotImplementedError("must override self.parse_output for your tool")
 
 
     class ToolError(Exception):
