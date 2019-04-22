@@ -99,9 +99,25 @@ class AbstractTool(threading.Thread):
 
     def terminate(self):
         """
-        This kills the tool while running
+        This kills the tool while running.
         """
+        # killing subprocess
         self.sp.kill()
+
+        stop_cmd = 'docker stop %s' % self.ct_name
+        rm_cmd = 'docker stop %s' % self.ct_name
+
+        # stopping/deleting container. If it doesnt exist this will fail and it wont matter
+        try:
+            self.__execute_cmd(stop_cmd)
+        except self.ToolError:
+            pass
+
+        try:
+            self.__execute_cmd(rm_cmd)
+        except self.ToolError:
+            pass
+
 
     def __execute_cmd(self, cmd):
         """
