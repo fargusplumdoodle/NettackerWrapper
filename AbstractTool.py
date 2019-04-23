@@ -39,6 +39,7 @@ class AbstractTool(threading.Thread):
     Child Class Must Implement:
         - self.run_command:
             - String
+            - Must set after calling super constructor
             - Bash command that will be executed.
             - Recommended: Docker, not required.
             - Recommended for Docker: add the "--rm" parameter to the "docker run"
@@ -69,14 +70,14 @@ class AbstractTool(threading.Thread):
                    put that information in the appropriate locations in
                    the database
     """
-    def __init__(self, tool_name, timeout, run_command):
+    def __init__(self, tool_name, timeout):
         # calling threading's init
         super(AbstractTool, self).__init__()
 
         # Overwritten attributes
         self.tool_name = tool_name
         self.timeout = timeout
-        self.run_command = run_command
+        self.run_command = None
 
         # will be written by self.execute_tool()
         self.stdout = None
@@ -152,7 +153,7 @@ class AbstractTool(threading.Thread):
 
         return stdout
 
-    def __execute_tool(self, cmd):
+    def __execute_tool(self):
         """
         Executes a linux command, but use this specifically for running the tool
         This function populates the self.stdout member variable
@@ -160,10 +161,12 @@ class AbstractTool(threading.Thread):
         :param cmd: a string of the command to be ran
         :raises: Timeout error, Tool Error
         """
-        assert(type(cmd) == str)  # cmd must be string
+
+        if self.run_command is None:
+            raise NotImplementedError("self.run_command must be set")
 
         # splitting, this is required by subprocess
-        cmd = cmd.split(' ')
+        cmd = self.run_command.split(' ')
 
         # creating process object
         self.sp = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -214,7 +217,7 @@ class AbstractTool(threading.Thread):
         """
         # 2.
         try:
-            self.__execute_tool(self.run_command)
+            self.__execute_tool()
         except subprocess.TimeoutExpired:
             self.fail('timeout expired')
         except self.ToolError:
@@ -255,8 +258,9 @@ class DummyTool(AbstractTool):
 
     It just runs whatever command you tell it, and then prints the command
     """
-    def __init__(self, tool_name="dummytool", run_command="echo dummy tool output", timeout = 10):
-        super(DummyTool, self).__init__(tool_name, timeout, run_command)
+    def __init__(self, tool_name="dummytool", run_command="echo dummy tool output", timeout=10):
+        super(DummyTool, self).__init__(tool_name, timeout)
+        self.run_command = run_command
 
     def parse_output(self):
         """
