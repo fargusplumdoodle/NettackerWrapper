@@ -33,6 +33,7 @@ class AbstractTool(threading.Thread):
 
     Public Methods:
         - run() -> runs the tool and parses output
+            - raises a FileNotFoundError when provided a bad run_command
         - terminate() -> destroys currently running tool
 
     Child Class Must Implement:
