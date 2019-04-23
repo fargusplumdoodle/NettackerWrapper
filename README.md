@@ -10,4 +10,6 @@ Goals:
 5. ??
 6. Profit
 
-also this might make sparkles: :sparkles:
+Here are some sparkles for your troubles :sparkles::sparkles::sparkles::sparkles::sparkles::sparkles::sparkles::sparkles::sparkles::sparkles::sparkles::sparkles::sparkles::sparkles::sparkles::sparkles::sparkles::sparkles::sparkles::sparkles::sparkles::sparkles::sparkles::sparkles::sparkles::sparkles::sparkles::sparkles::sparkles::sparkles::sparkles::sparkles::sparkles::sparkles:
+
+Thank you
