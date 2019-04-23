@@ -91,7 +91,7 @@ class AbstractTool(threading.Thread):
 
         # set to true once the tool is finished executing
         self.finished = False
-        self.failed  = True
+        self.failed = True
         self.raw_output = None
 
         # Later this should be generated based off an ID in the database to ensure no duplicate containers
@@ -117,6 +117,8 @@ class AbstractTool(threading.Thread):
             self.__execute_cmd(rm_cmd)
         except self.ToolError:
             pass
+
+        self.fail("terminated")
 
     def __execute_cmd(self, cmd):
         """
@@ -174,22 +176,25 @@ class AbstractTool(threading.Thread):
 
         # validating. Could be an issue for some tools
         if self.stderr != '':
-            self.fail()
+            self.fail('Stderr: ' + self.stderr)
 
         # clearing the subprocess
         self.sp = None
 
-    def fail(self):
+    def fail(self, reason):
         """
         Run this when the tool fails
 
         The fail behaviour is subject to change
+
+        right now sets self.stderr to whatever the reason was
+
+        maybe the user knows to check stderr if self.failed is true
         """
         self.failed = True
         self.stdout = "failed"
-        self.stderr = "failed"
+        self.stderr = reason
         self.finished = True
-        exit(-3)  # returning non zero status code
 
     def run(self):
         """
@@ -210,9 +215,9 @@ class AbstractTool(threading.Thread):
         try:
             self.__execute_tool(self.run_command)
         except subprocess.TimeoutExpired:
-            self.fail()
+            self.fail('timeout expired')
         except self.ToolError:
-            self.fail()
+            self.fail('tool error')
 
         # 3.
         self.parse_output()
