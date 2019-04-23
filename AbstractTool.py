@@ -68,14 +68,14 @@ class AbstractTool(threading.Thread):
                    put that information in the appropriate locations in
                    the database
     """
-    def __init__(self):
+    def __init__(self, tool_name, timeout, run_command):
         # calling threading's init
         super(AbstractTool, self).__init__()
 
         # Overwritten attributes
-        self.tool_name = None
-        self.timeout = None
-        self.run_command = None
+        self.tool_name = tool_name
+        self.timeout = timeout
+        self.run_command = run_command
 
         # will be written by self.execute_tool()
         self.stdout = None
@@ -91,14 +91,6 @@ class AbstractTool(threading.Thread):
 
         # Later this should be generated based off an ID in the database to ensure no duplicate containers
         self.ct_name = self.tool_name + '1'
-
-        # Implementation Validation
-        if self.tool_name is None:
-            raise NotImplementedError("must define self.tool_name before calling init")
-        if self.timeout is None:
-            raise NotImplementedError("must define self.timeout before calling init")
-        if self.run_command is None:
-            raise NotImplementedError("must define self.run_command before calling init")
 
     def terminate(self):
         """
@@ -176,7 +168,7 @@ class AbstractTool(threading.Thread):
         self.stderr = stderr.decode('utf-8')
 
         # validating. Could be an issue for some tools
-        if self.stderr == '':
+        if self.stderr != '':
             raise self.ToolError("Command: %s \nReturned error: \n%s" % (cmd, stderr))
 
         # clearing the subprocess
@@ -229,12 +221,15 @@ class DummyTool(AbstractTool):
     This is a fake tool for testing purposes
     """
     def __init__(self):
-        self.tool_name = "dummytool"
-        self.timeout = 10  # it shouldn't take 10 seconds to do nothing
-        self.run_command = "echo dummy tool output"  # doesn't matter
-
-        super(DummyTool, self).__init__()
+        tool_name = "dummytool"
+        timeout = 10  # it shouldn't take 10 seconds to do nothing
+        run_command = "echo dummy tool output"  # doesn't matter
+        super(DummyTool, self).__init__(tool_name, timeout, run_command)
 
     def parse_output(self):
         print(self.stdout)
 
+
+if __name__ == '__main__':
+    x = DummyTool()
+    x.start()
