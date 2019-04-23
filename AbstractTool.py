@@ -107,7 +107,7 @@ class AbstractTool(threading.Thread):
         self.sp.kill()
 
         stop_cmd = 'docker stop %s' % self.ct_name
-        rm_cmd = 'docker stop %s' % self.ct_name
+        rm_cmd = 'docker rm %s' % self.ct_name
 
         # stopping/deleting container. If it doesnt exist this will fail and it wont matter
         try:
