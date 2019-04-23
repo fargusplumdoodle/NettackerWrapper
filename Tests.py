@@ -65,8 +65,19 @@ def test_regular_conditions_nettacker():
 
 
 # nettacker
+def test_terminate():
+    x = NettackerTool()
+    x.start()
+    time.sleep(0.1)
+    x.terminate()
+    assert x.failed  # we do want it to have failed
+    assert x.stderr == "terminated"  # insert schwarzenegger reference here
+
+
+# nettacker
 def test_nettacker_tool():
     test_regular_conditions_nettacker()
+    test_terminate()
 
     print("\nNettackerTool Tests Completed Successfully\n")
 

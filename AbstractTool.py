@@ -93,7 +93,7 @@ class AbstractTool(threading.Thread):
 
         # set to true once the tool is finished executing
         self.finished = False
-        self.failed = True
+        self.failed = False
         self.raw_output = None
 
         # Later this should be generated based off an ID in the database to ensure no duplicate containers
@@ -150,9 +150,6 @@ class AbstractTool(threading.Thread):
         if stderr == '':
             raise self.ToolError("Command: %s \nReturned error: \n%s" % (cmd, stderr))
 
-        # clearing the subprocess
-        self.sp = None
-
         return stdout
 
     def __execute_tool(self):
@@ -185,9 +182,6 @@ class AbstractTool(threading.Thread):
         # validating. Could be an issue for some tools
         if self.stderr != '':
             self.fail('Stderr: ' + self.stderr)
-
-        # clearing the subprocess
-        self.sp = None
 
     def fail(self, reason):
         """
