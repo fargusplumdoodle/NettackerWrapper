@@ -133,6 +133,8 @@ class AbstractTool(threading.Thread):
 
         # splitting, this is required by subprocess
         cmd = cmd.split(' ')
+        # this should remove each empty string from command list
+        cmd = [x for x in cmd if x]
 
         # creating process object
         self.sp = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -167,6 +169,8 @@ class AbstractTool(threading.Thread):
 
         # splitting, this is required by subprocess
         cmd = self.run_command.split(' ')
+        # this should remove each empty string from command list
+        cmd = [x for x in cmd if x]
 
         # creating process object
         self.sp = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)

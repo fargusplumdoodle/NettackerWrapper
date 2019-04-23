@@ -34,6 +34,9 @@ class NettackerTool(AbstractTool):
         # the target to scan
         self.target = target
 
+        # container name
+        self.ct_name = self.tool_name + "_" + self.scan_no
+
         # the options, by default is icmp_scan because its fast
         self.scan_options = scan_options
 
@@ -50,12 +53,14 @@ class NettackerTool(AbstractTool):
         self.results_file_path_local = os.path.join(self.local_results, self.output_fl)
 
         # docker simplifies things... trust me...
+        # --rm deletes the container after its done running
         self.run_command = 'docker run ' \
                            '-v %s:%s ' \
+                           '--rm ' \
                            '--name %s %s ' \
                            '-i %s ' \
                            '-m %s ' \
-                           '-o %s' \
+                           '-o %s ' \
                            % (
                                self.local_results,
                                self.docker_results,

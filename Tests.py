@@ -72,5 +72,5 @@ def test_nettacker_tool():
 
 
 if __name__ == '__main__':
+    test_dummy_abstract_tool()
     test_nettacker_tool()
-    # test_dummy_abstract_tool()
