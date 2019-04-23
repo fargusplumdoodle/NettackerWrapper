@@ -91,6 +91,7 @@ class AbstractTool(threading.Thread):
 
         # set to true once the tool is finished executing
         self.finished = False
+        self.failed  = True
         self.raw_output = None
 
         # Later this should be generated based off an ID in the database to ensure no duplicate containers
@@ -173,18 +174,31 @@ class AbstractTool(threading.Thread):
 
         # validating. Could be an issue for some tools
         if self.stderr != '':
-            raise self.ToolError("Command: %s \nReturned error: \n%s" % (cmd, stderr))
+            self.fail()
 
         # clearing the subprocess
         self.sp = None
+
+    def fail(self):
+        """
+        Run this when the tool fails
+
+        The fail behaviour is subject to change
+        """
+        self.failed = True
+        self.stdout = "failed"
+        self.stderr = "failed"
+        self.finished = True
+        exit(-3)  # returning non zero status code
 
     def run(self):
         """
         Run method procedure:
             1. Starts new thread
-            2. Executes self.run_tool command (implemented by child class)
-                :raises Timeout error: if tool timed out
-                :raises Tool Error: if stderr was not null
+            2. Executes self.__execute_tool command (implemented by child class)
+                - catches:
+                    subprocess.TimeoutExpired
+                    ToolError
             3. Executes self.parse_output() (implemented by child class)
             4. Sets self.finished to True
 
@@ -193,7 +207,12 @@ class AbstractTool(threading.Thread):
             - Update scan status as we progress through the procedure
         """
         # 2.
-        self.__execute_tool(self.run_command)
+        try:
+            self.__execute_tool(self.run_command)
+        except subprocess.TimeoutExpired:
+            self.fail()
+        except self.ToolError:
+            self.fail()
 
         # 3.
         self.parse_output()

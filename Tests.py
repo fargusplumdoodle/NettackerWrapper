@@ -19,13 +19,12 @@ def test_timeout():
     cmd = "sleep 4"
     to = 1
     x = DummyTool(run_command=cmd, timeout=to)
-    passed = False
-    try:
-        x.start()
-    except subprocess.TimeoutExpired:
-        passed = True
+    x.start()
 
-    assert passed  # tool did not timeout
+    while not x.finished:
+        time.sleep(0.1)
+
+    assert x.failed  # tool did not timeout
 
 
 if __name__ == '__main__':
