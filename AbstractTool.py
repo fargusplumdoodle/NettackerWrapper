@@ -102,6 +102,15 @@ class AbstractTool(threading.Thread):
     def terminate(self):
         """
         This kills the tool while running.
+
+        Be aware that when the tool is terminated, its thread will continue to run until it has crashed.
+
+       Procedure:                    
+        - kill whatever subprocess is running ( the tool )                        
+        - stop the docker container
+        - delete the docker container
+    	
+	But it does not stop the threads execution. Maybe theres a way to do that, I will look into it when we get there, but for the time being terminating an executing tool is out of scope.
         """
         # killing subprocess
         self.sp.kill()
