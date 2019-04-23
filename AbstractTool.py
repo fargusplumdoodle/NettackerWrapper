@@ -89,6 +89,10 @@ class AbstractTool(threading.Thread):
         """
         self.sp = None
 
+        # set to true once the tool is finished executing
+        self.finished = False
+        self.raw_output = None
+
         # Later this should be generated based off an ID in the database to ensure no duplicate containers
         self.ct_name = self.tool_name + '1'
 
@@ -182,6 +186,7 @@ class AbstractTool(threading.Thread):
                 :raises Timeout error: if tool timed out
                 :raises Tool Error: if stderr was not null
             3. Executes self.parse_output() (implemented by child class)
+            4. Sets self.finished to True
 
         Future functionality:
             - Put data in database
@@ -192,6 +197,9 @@ class AbstractTool(threading.Thread):
 
         # 3.
         self.parse_output()
+
+        # 4.
+        self.finished = True
 
     def parse_output(self):
         """
@@ -219,17 +227,27 @@ class AbstractTool(threading.Thread):
 class DummyTool(AbstractTool):
     """
     This is a fake tool for testing purposes
+
+    It just runs whatever command you tell it, and then prints the command
     """
-    def __init__(self):
-        tool_name = "dummytool"
-        timeout = 10  # it shouldn't take 10 seconds to do nothing
-        run_command = "echo dummy tool output"  # doesn't matter
+    def __init__(self, tool_name="dummytool", run_command="echo dummy tool output", timeout = 10):
         super(DummyTool, self).__init__(tool_name, timeout, run_command)
 
     def parse_output(self):
-        print(self.stdout)
+        """
+        - self.parse_output():
+            - Method
+            - Each tool provides output differently therefor each implementation
+              of AbstractTool must override self.parse_output()
+            - Must:
+                1. Retrieve data from self.stdout
+                2. Parse that data for meaningful information
+                3. Put data in relevant place
+            - Phases:
+                1. Just put raw data into self.raw_output ( no parsing )
+                2. Retrieve meaningful information from tool output and
+                   put that information in the appropriate locations in
+                   the database
+        """
+        self.raw_output = self.stdout  # yea I know
 
-
-if __name__ == '__main__':
-    x = DummyTool()
-    x.start()
