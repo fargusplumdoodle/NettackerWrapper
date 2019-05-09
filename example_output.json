@@ -1,0 +1,102 @@
+[
+	{
+		"USERNAME": "",
+		"SCAN_ID": "ac73c4ea3bc730d4d74f10b936c269da",
+		"DESCRIPTION": "vulnerable to ",
+		"TIME": "2019-05-09 23:40:28",
+		"PASSWORD": "",
+		"TYPE": "XSS_protection_vuln",
+		"HOST": "10.0.0.44",
+		"PORT": "80"
+	},
+	{
+		"USERNAME": "",
+		"SCAN_ID": "ac73c4ea3bc730d4d74f10b936c269da",
+		"DESCRIPTION": "10.0.0.44 found! (CMS Name:Wordpress)",
+		"TIME": "2019-05-09 23:40:40",
+		"PASSWORD": "",
+		"TYPE": "cms_detection_scan",
+		"HOST": "10.0.0.44",
+		"PORT": "80"
+	},
+	{
+		"USERNAME": "",
+		"SCAN_ID": "ac73c4ea3bc730d4d74f10b936c269da",
+		"DESCRIPTION": "vulnerable to ",
+		"TIME": "2019-05-09 23:40:45",
+		"PASSWORD": "",
+		"TYPE": "content_type_options_vuln",
+		"HOST": "10.0.0.44",
+		"PORT": "80"
+	},
+	{
+		"USERNAME": "",
+		"SCAN_ID": "ac73c4ea3bc730d4d74f10b936c269da",
+		"DESCRIPTION": "22/ssh/TCP_CONNECT",
+		"TIME": "2019-05-09 23:40:55",
+		"PASSWORD": "",
+		"TYPE": "port_scan",
+		"HOST": "10.0.0.44",
+		"PORT": "22"
+	},
+	{
+		"USERNAME": "",
+		"SCAN_ID": "ac73c4ea3bc730d4d74f10b936c269da",
+		"DESCRIPTION": "80/http/TCP_CONNECT",
+		"TIME": "2019-05-09 23:40:56",
+		"PASSWORD": "",
+		"TYPE": "port_scan",
+		"HOST": "10.0.0.44",
+		"PORT": "80"
+	},
+	{
+		"USERNAME": "",
+		"SCAN_ID": "ac73c4ea3bc730d4d74f10b936c269da",
+		"DESCRIPTION": "10.0.0.44 is up! Time taken to ping back is 0.66ms",
+		"TIME": "2019-05-09 23:41:20",
+		"PASSWORD": "",
+		"TYPE": "icmp scan",
+		"HOST": "10.0.0.44",
+		"PORT": ""
+	},
+	{
+		"USERNAME": "",
+		"SCAN_ID": "ac73c4ea3bc730d4d74f10b936c269da",
+		"DESCRIPTION": "vulnerable to ",
+		"TIME": "2019-05-09 23:41:21",
+		"PASSWORD": "",
+		"TYPE": "server_version_vuln",
+		"HOST": "10.0.0.44",
+		"PORT": "80"
+	},
+	{
+		"USERNAME": "",
+		"SCAN_ID": "ac73c4ea3bc730d4d74f10b936c269da",
+		"DESCRIPTION": "10.0.0.44 found! (Sender Policy Framework Record : none: )",
+		"TIME": "2019-05-09 23:41:41",
+		"PASSWORD": "",
+		"TYPE": "joomla_version_scan",
+		"HOST": "10.0.0.44",
+		"PORT": "80"
+	},
+	{
+		"USERNAME": "",
+		"SCAN_ID": "ac73c4ea3bc730d4d74f10b936c269da",
+		"DESCRIPTION": "http://10.0.0.44:80/accounts/login/ found! (200:OK)",
+		"TIME": "2019-05-09 23:40:28",
+		"PASSWORD": "",
+		"TYPE": "pma_scan",
+		"HOST": "10.0.0.44",
+		"PORT": "80"
+	},
+	{
+		"USERNAME": "",
+		"SCAN_ID": "ac73c4ea3bc730d4d74f10b936c269da",
+		"DESCRIPTION": "http://10.0.0.44:80/admin/login/?next=/admin/ found! (200:OK)",
+		"TIME": "2019-05-09 23:40:28",
+		"PASSWORD": "",
+		"TYPE": "pma_scan",
+		"HOST": "10.0.0.44",
+		"PORT": "80"
+	}
+]
