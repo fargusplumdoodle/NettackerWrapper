@@ -14,13 +14,18 @@ But why?
 It includes:
     AbstractTool:
         - a baseclass for all Tool classes
-
+    DummyTool:
+        - a fake tool entirely for testing
+	- command can be customized. For example you could set run_command="sleep 60"
+	  to simulate a tool running. Or run_command="echo 'test output'" to simulate
+	  the handling of tool output.
 Plans:
     Django database integration:
         - The run method should update the scan status in the database
-    DummyTool
+    
     Terminate Tool:
         - Stops container, Deletes container
+	
     Position in queue?
 """
 import subprocess
