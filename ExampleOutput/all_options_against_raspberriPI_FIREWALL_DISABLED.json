@@ -1,0 +1,112 @@
+[
+	{
+		"USERNAME": "",
+		"SCAN_ID": "0bc6cad05d7827b17ae1f404a1a2660d",
+		"DESCRIPTION": "vulnerable to ",
+		"TIME": "2019-05-09 23:53:33",
+		"PASSWORD": "",
+		"TYPE": "XSS_protection_vuln",
+		"HOST": "10.0.0.44",
+		"PORT": "80"
+	},
+	{
+		"USERNAME": "",
+		"SCAN_ID": "0bc6cad05d7827b17ae1f404a1a2660d",
+		"DESCRIPTION": "http://10.0.0.44:80/accounts/login/ found! (200:OK)",
+		"TIME": "2019-05-09 23:53:32",
+		"PASSWORD": "",
+		"TYPE": "pma_scan",
+		"HOST": "10.0.0.44",
+		"PORT": "80"
+	},
+	{
+		"USERNAME": "",
+		"SCAN_ID": "0bc6cad05d7827b17ae1f404a1a2660d",
+		"DESCRIPTION": "http://10.0.0.44:80/admin/login/?next=/admin/ found! (200:OK)",
+		"TIME": "2019-05-09 23:53:32",
+		"PASSWORD": "",
+		"TYPE": "pma_scan",
+		"HOST": "10.0.0.44",
+		"PORT": "80"
+	},
+	{
+		"USERNAME": "",
+		"SCAN_ID": "0bc6cad05d7827b17ae1f404a1a2660d",
+		"DESCRIPTION": "vulnerable to ",
+		"TIME": "2019-05-09 23:53:37",
+		"PASSWORD": "",
+		"TYPE": "content_type_options_vuln",
+		"HOST": "10.0.0.44",
+		"PORT": "80"
+	},
+	{
+		"USERNAME": "",
+		"SCAN_ID": "0bc6cad05d7827b17ae1f404a1a2660d",
+		"DESCRIPTION": "Web Frameworks: Django",
+		"TIME": "2019-05-09 23:53:39",
+		"PASSWORD": "",
+		"TYPE": "wappalyzer_scan",
+		"HOST": "10.0.0.44",
+		"PORT": ""
+	},
+	{
+		"USERNAME": "",
+		"SCAN_ID": "0bc6cad05d7827b17ae1f404a1a2660d",
+		"DESCRIPTION": "Programming Languages: Python",
+		"TIME": "2019-05-09 23:53:39",
+		"PASSWORD": "",
+		"TYPE": "wappalyzer_scan",
+		"HOST": "10.0.0.44",
+		"PORT": ""
+	},
+	{
+		"USERNAME": "",
+		"SCAN_ID": "0bc6cad05d7827b17ae1f404a1a2660d",
+		"DESCRIPTION": "22/ssh/TCP_CONNECT",
+		"TIME": "2019-05-09 23:53:42",
+		"PASSWORD": "",
+		"TYPE": "port_scan",
+		"HOST": "10.0.0.44",
+		"PORT": "22"
+	},
+	{
+		"USERNAME": "",
+		"SCAN_ID": "0bc6cad05d7827b17ae1f404a1a2660d",
+		"DESCRIPTION": "25/smtp/TCP_CONNECT",
+		"TIME": "2019-05-09 23:53:46",
+		"PASSWORD": "",
+		"TYPE": "port_scan",
+		"HOST": "10.0.0.44",
+		"PORT": "25"
+	},
+	{
+		"USERNAME": "",
+		"SCAN_ID": "0bc6cad05d7827b17ae1f404a1a2660d",
+		"DESCRIPTION": "10.0.0.44 is up! Time taken to ping back is 1.01ms",
+		"TIME": "2019-05-09 23:53:47",
+		"PASSWORD": "",
+		"TYPE": "icmp scan",
+		"HOST": "10.0.0.44",
+		"PORT": ""
+	},
+	{
+		"USERNAME": "",
+		"SCAN_ID": "0bc6cad05d7827b17ae1f404a1a2660d",
+		"DESCRIPTION": "10.0.0.44 found! (Sender Policy Framework Record : none: )",
+		"TIME": "2019-05-09 23:53:53",
+		"PASSWORD": "",
+		"TYPE": "joomla_version_scan",
+		"HOST": "10.0.0.44",
+		"PORT": "80"
+	},
+	{
+		"USERNAME": "",
+		"SCAN_ID": "0bc6cad05d7827b17ae1f404a1a2660d",
+		"DESCRIPTION": "10.0.0.44 found! (CMS Name:Wordpress)",
+		"TIME": "2019-05-09 23:54:00",
+		"PASSWORD": "",
+		"TYPE": "cms_detection_scan",
+		"HOST": "10.0.0.44",
+		"PORT": "80"
+	}
+]
