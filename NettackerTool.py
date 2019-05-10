@@ -21,8 +21,9 @@ class NettackerTool(AbstractTool):
         - self.tool_name:
         - self.parse_output():
     """
-    def __init__(self, target='127.0.0.1', scan_options='icmp_scan', timeout=60):
+    def __init__(self, target='127.0.0.1', scan_options='icmp_scan', exclude_options="viewdns_reverse_ip_lookup_scan", timeout=60):
         super(NettackerTool, self).__init__(timeout=timeout, tool_name="nettacker")
+        # TODO:change scan_options to "all"
 
         # to prevent any clashes with simultaneous scans, later probably will be replaced with some
         # unique value from database
@@ -45,6 +46,9 @@ class NettackerTool(AbstractTool):
 
         self.docker_image = 'nettacker'
 
+        # options not to include when scanning
+        self.exclude_options = exclude_options
+
         # local results config
         self.local_results = '/tmp/nettacker/scan' + self.scan_no + '/'
         os.makedirs(self.local_results)  # making local results directory
@@ -61,6 +65,7 @@ class NettackerTool(AbstractTool):
                            '-i %s ' \
                            '-m %s ' \
                            '-o %s ' \
+                           '-x %s ' \
                            % (
                                self.local_results,
                                self.docker_results,
@@ -68,7 +73,9 @@ class NettackerTool(AbstractTool):
                                self.docker_image,
                                self.target,
                                self.scan_options,
-                               self.results_file_path_docker)
+                               self.results_file_path_docker,
+                               self.exclude_options
+                           )
 
     def parse_output(self):
         """
