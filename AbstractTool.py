@@ -25,8 +25,10 @@ Plans:
     
     Terminate Tool:
         - Stops container, Deletes container
-	
-    Position in queue?
+
+    TODO: Make abstract tool automatically create the tool in the alias table
+        - e.g. if it doesnt exist in the database, make a new Alias object with the tool_name and alias_name
+        - also add alias name, each child must implement alias name
 """
 import subprocess
 import threading
@@ -61,6 +63,10 @@ class AbstractTool(threading.Thread):
             - String, lowercase alphabetic only
             - the name of the tool that is implementing the AbstractTool class
 
+        - self.alias_name
+            - String, lowercase alphabetic only
+            - the alias that the user will provide to call the tool
+
         - self.parse_output():
             - Method
             - Each tool provides output differently therefor each implementation
@@ -75,7 +81,7 @@ class AbstractTool(threading.Thread):
                    put that information in the appropriate locations in
                    the database
     """
-    def __init__(self, tool_name, timeout):
+    def __init__(self, tool_name, alias_name, timeout):
         # calling threading's init
         super(AbstractTool, self).__init__()
 
@@ -83,6 +89,7 @@ class AbstractTool(threading.Thread):
         self.tool_name = tool_name
         self.timeout = timeout
         self.run_command = None
+        self.alias_name = alias_name
 
         # will be written by self.execute_tool()
         self.stdout = None
